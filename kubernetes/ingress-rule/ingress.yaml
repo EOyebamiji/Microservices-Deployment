@@ -2,17 +2,17 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: grafana
-  namespace: monitoring 
+  namespace: monitoring
 spec:
   ingressClassName: external-nginx
   rules:
-  - host: grafana.nwokolo.live
+  - host: grafana.eoyebamiji.com
     http:
       paths:
       - path: /
         pathType: prefix
         backend:
           service:
-            name: 
+            name: grafana-service-name  # Replace with the actual service name
             port:
-              number:
+              number: 80  # Replace with the actual service port

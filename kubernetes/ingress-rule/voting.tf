@@ -12,7 +12,7 @@ resource "kubernetes_ingress_v1" "voting-ingress" {
 
   spec {
     rule {
-      host = "voting-app.nwokolo.live"
+      host = "voting-app.eoyebamiji.com"
       http {
         path {
           backend {
@@ -44,7 +44,7 @@ resource "kubernetes_ingress_v1" "result-ingress" {
 
   spec {
     rule {
-      host = "result.nwokolo.live"
+      host = "result.eoyebamiji.com"
       http {
         path {
           backend {
