@@ -19,6 +19,11 @@ jobs:
       matrix:
         environment: [create, destroy]
 
+    inputs:
+      environment:
+        description: 'Environment (create or destroy)'
+        required: true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -39,4 +44,9 @@ jobs:
           elif [ "${{ matrix.environment }}" == "destroy" ]; then
             terraform destroy --auto-approve
           fi
+        working-directory: eks
+
+      - name: Set outputs
+        if: always()
+        run: echo "##[set-output name=terraform_output;]$(cat eks/terraform.log)"
         working-directory: eks
