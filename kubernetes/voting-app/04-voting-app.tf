@@ -45,9 +45,6 @@ resource "kubernetes_service" "kube-voting-service" {
   metadata {
     name      = "voting-service"
     namespace =  kubernetes_namespace.kube-namespace.id
-   /*  annotations = {
-        prometheus.io/scrape: "true"
-    } */
 
     labels = {
         name = "voting-service"

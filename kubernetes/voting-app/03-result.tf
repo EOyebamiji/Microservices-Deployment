@@ -45,9 +45,6 @@ resource "kubernetes_service" "kube-result-service" {
   metadata {
     name      = "result-service"
     namespace =  kubernetes_namespace.kube-namespace.id
-   /*  annotations = {
-        prometheus.io/scrape: "true"
-    } */
 
     labels = {
         name = "result-service"

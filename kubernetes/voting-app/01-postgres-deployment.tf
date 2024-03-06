@@ -50,9 +50,6 @@ resource "kubernetes_service" "kube-db-service" {
   metadata {
     name      = "db"
     namespace = kubernetes_namespace.kube-namespace.id
-    /* annotations = {
-        prometheus.io/scrape: "true"
-    } */
 
     labels = {
         name = "db-service"

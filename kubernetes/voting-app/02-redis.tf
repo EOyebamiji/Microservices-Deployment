@@ -45,9 +45,6 @@ resource "kubernetes_service" "kube-redis-service" {
   metadata {
     name      = "redis"
     namespace =  kubernetes_namespace.kube-namespace.id
-    /* annotations = {
-        prometheus.io/scrape: "true"
-    } */
 
     labels = {
         name = "redis-service"
