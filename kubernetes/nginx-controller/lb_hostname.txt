@@ -1,1 +1,0 @@
-'a0facba66bf234a9b9c822d06c90774a-440015367.eu-west-2.elb.amazonaws.com'
