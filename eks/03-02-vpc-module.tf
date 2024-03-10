@@ -6,10 +6,10 @@ data "aws_availability_zones" "available" {
 # Create VPC Terraform Module
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.5.2"
+  version = "5.5.3"
 
   # VPC Basic Details
-  name            = "${local.name}-${var.vpc_name}"
+  name            = var.vpc_name
   cidr            = var.vpc_cidr_block
   azs             = data.aws_availability_zones.available.names
   public_subnets  = var.vpc_public_subnets
@@ -30,24 +30,24 @@ module "vpc" {
   enable_dns_hostnames = var.vpc_enable_dns_hostnames
   enable_dns_support   = var.vpc_enable_dns_support
 
-  # VPC Tags
-  tags     = local.common_tags
-  vpc_tags = local.common_tags
-
-  # Additional Tags to Subnets
+    # Additional Tags to Subnets
   public_subnet_tags = {
     Type                                              = "Public Subnets"
     "kubernetes.io/role/elb"                          = 1
-    "kubernetes.io/cluster/${local.eks_cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}"       = "shared"
   }
 
   private_subnet_tags = {
     Type                                              = "private-subnets"
     "kubernetes.io/role/internal-elb"                 = 1
-    "kubernetes.io/cluster/${local.eks_cluster_name}" = "shared"
+    "kubernetes.io/cluster/${var.cluster_name}"       = "shared"
   }
 
   database_subnet_tags = {
     Type = "database-subnets"
   }
+}
+
+output "available_zone_names" {
+  value = data.aws_availability_zones.available.names
 }

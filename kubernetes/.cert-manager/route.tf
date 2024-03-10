@@ -45,7 +45,6 @@ resource "aws_route53_record" "C-record" {
 }
 
 
-
 # Path: route53.tf
 # request public certificates from the amazon certificate manager.
 resource "aws_acm_certificate" "acm_certificate" {

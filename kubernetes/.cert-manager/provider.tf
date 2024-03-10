@@ -18,14 +18,14 @@ terraform {
 }
 
 
-data "aws_eks_cluster" "Ops-Dev-EKS-Cluster" {
-  name = "Ops-Dev-EKS-Cluster"
+data "aws_eks_cluster" "cluster_name" {
+  name = var.cluster_name
 }
-data "aws_eks_cluster_auth" "Ops-Dev-EKS-Cluster_auth" {
-  name = "Ops-Dev-EKS-Cluster_auth"
+data "aws_eks_cluster_auth" "cluster_name" {
+  name = "${var.cluster_name}_auth"
 }
 
 
 provider "aws" {
-  region     = "eu-west-2"
+  region     = var.aws_region
 }

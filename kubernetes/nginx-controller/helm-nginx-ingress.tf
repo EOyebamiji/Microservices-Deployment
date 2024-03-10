@@ -1,7 +1,7 @@
 resource "time_sleep" "wait_for_kubernetes" {
 
     depends_on = [
-        data.aws_eks_cluster.hr-dev-eks-demo
+        data.aws_eks_cluster.cluster_name
     ]
 
     create_duration = "20s"
@@ -70,12 +70,3 @@ resource "helm_release" "ingress_nginx" {
   } 
   
 }
-
-/* output "l" {
-  
-} */
-
-# Display load balancer hostname (typically present in AWS)
-/* output "load_balancer_hostname" {
-  value = kubernetes_ingress.sock-shop.status.0.load_balancer.0.ingress.0.hostname
-} */

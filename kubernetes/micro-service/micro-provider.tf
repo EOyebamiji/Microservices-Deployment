@@ -1,26 +1,41 @@
 terraform {
   required_providers {
+    helm = {
+      source = "hashicorp/helm"
+      version = "2.12.1"
+    }
+
     kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = ">= 2.0.0"
+      source = "hashicorp/kubernetes"
+      version = "2.26.0"
+    }
+
+    kubectl = {
+      source = "gavinbunney/kubectl"
+      version = "1.14.0"
     }
   }
 }
 
-data "aws_eks_cluster" "hr-dev-eks-demo" {
-  name = "hr-dev-eks-demo"
+data "aws_eks_cluster" "cluster_name" {
+  name = var.cluster_name
 }
-data "aws_eks_cluster_auth" "hr-dev-eks-demo_auth" {
-  name = "hr-dev-eks-demo_auth"
+
+data "aws_eks_cluster_auth" "cluster_name" {
+  name = "${var.cluster_name}_auth"
 }
+
+provider "aws" {
+  region     = var.aws_region
+}
+
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.hr-dev-eks-demo.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.hr-dev-eks-demo.certificate_authority[0].data)
-  version          = "2.16.1"
-  config_path = "~/.kube/config"
+   host                   = data.aws_eks_cluster.cluster_name.endpoint
+   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster_name.certificate_authority[0].data)
+   config_path = "~/.kube/config"
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
-    args        = ["eks", "get-token", "--cluster-name", "hr-dev-eks-demo"]
+    args        = ["eks", "get-token", "--cluster-name", var.cluster_name]
     command     = "aws"
   }
 }
