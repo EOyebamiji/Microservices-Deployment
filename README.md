@@ -50,4 +50,11 @@ chmod +x ./script.sh    #This is a bash script to automate the installation of t
 ./script.sh     #This command will execute the script and install the project tools requirements and dependencies. Kindly press enter where necessary to run the script.
 ```
 
-4. Upon completion, the script will have installed the project tools requirements and dependencies. next step is to copy the public IP address of the "Jenkins-Server" instance and input into our browser to access our Jenkins server e.g. `80.1.1.3:3000`.
+4. Upon completion, the script will have installed the project tools requirements and dependencies. next step is to copy the public IP address of the "Jenkins-Server" instance and input into our browser to access our Jenkins server e.g. `18.171.172.160:8080`.
+
+5. Next step is to access the login credentials of Jenkins server from the directory `/var/lib/jenkins/secrets/initialAdminPassword` using the below command
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+6. 
