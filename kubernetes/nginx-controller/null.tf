@@ -82,33 +82,3 @@ resource "aws_acm_certificate_validation" "acm_certificate_validation" {
   certificate_arn         = aws_acm_certificate.acm_certificate.arn
   validation_record_fqdns = [for record in aws_route53_record.route53_record : record.fqdn]
 }
-
-# Path: ingress.tf
-resource "kubectl_manifest" "ingress" {
-  yaml_body = <<-EOT
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ingress-nginx
-  namespace: nginx-ingress
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-spec:
-  tls:
-  - hosts:
-    - "${var.domain_name}"
-    secretName: aws-acm-certificate-secret
-  rules:
-  - host: "${var.domain_name}"
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: load-nginx-admission  # Replace with your actual service name
-            port:
-              number: 80
-EOT
-  depends_on = [helm_release.ingress_nginx, aws_acm_certificate.acm_certificate_validation]
-}
