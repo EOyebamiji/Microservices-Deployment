@@ -1,6 +1,4 @@
-# AltSchool SOE: Cloud Engineering Capstone Project
-
-## Microservices: Automating The Deployment of Socks Shop on Kubernetes Using Terraform and Jenkins
+# Microservices: Automating The Deployment of Socks Shop on Kubernetes Using Terraform and Jenkins
 
 ### Project Overview
 
